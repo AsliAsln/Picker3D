@@ -1,5 +1,4 @@
-﻿using System;
-using Command;
+﻿using Command;
 using Data.UnityObjects;
 using Data.ValueObjects;
 using UnityEngine;
@@ -14,23 +13,34 @@ namespace Managers
 
         [SerializeField] private Transform levelHolder;
         [SerializeField] private int levelID;
-        private int _totalLevelCount;
 
         #endregion
 
         #region Private Variables
 
         private LevelData _data;
+        private int _totalLevelCount;
 
         private OnLevelLoaderCommand _levelLoader;
         private OnLevelDestroyerCommand _levelDestroyer;
+        private OnRestartLevelCommand _restartLevel;
+        private OnNextLevelCommand _nextLevel;
 
         #endregion
 
         #endregion
 
+        public static LevelManager Instance;
+        
         private void Awake()
         {
+            if(Instance!= null && Instance !=this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            
             _data = GetLevelData();
             _totalLevelCount = GetTotalLevelCount();
             levelID = GetLevelID();
@@ -48,38 +58,35 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            CoreGamesSignals.Instance.onLevelInitialize
+            CoreGamesSignals.Instance.onLevelInitialize += _levelLoader.Execute;
+            CoreGamesSignals.Instance.onClearActiveLevel += _levelDestroyer.Execute;
+            CoreGamesSignals.Instance.onNextLevel += _nextLevel.Execute;
+            CoreGamesSignals.Instance.onRestartLevel += _restartLevel.Execute;
         }
 
         private void UnsubscribeEvents()
         {
+            CoreGamesSignals.Instance.onLevelInitialize -= _levelLoader.Execute;
+            CoreGamesSignals.Instance.onClearActiveLevel -= _levelDestroyer.Execute;
+            CoreGamesSignals.Instance.onNextLevel -= OnNextLevel;
+            CoreGamesSignals.Instance.onRestartLevel -= OnRestartLevel;
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
         private void Start()
         {
-            OnInitializeLevel(levelID);
+            _levelLoader.Execute(levelID);
         }
 
         private LevelData GetLevelData() => Resources.Load<CD_Level>("Data/CD_Level").LevelList[levelID];
         private int GetTotalLevelCount() => Resources.Load<CD_Level>("Data/CD_Level").LevelList.Count;
+        private int GetLevelId() => GetLevelId();
 
-
-        private int GetLevelID()
+        public static int GetLevelID()
         {
             if (!ES3.FileExists()) return 0;
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 0;
-        }
-
-        private void OnInitializeLevel(int ID)
-        {
-            _levelLoader.Execute(ID);
-        }
-
-        private void OnClearActiveLevel()
-        {
-            _levelDestroyer.Execute();
         }
 
         private void OnNextLevel()
@@ -89,11 +96,17 @@ namespace Managers
             CoreGamesSignals.Instance.onReset?.Invoke();
             CoreGamesSignals.Instance.onLevelInitialize?.Invoke(levelID);
         }
+
         private void OnRestartLevel()
         {
             CoreGamesSignals.Instance.onClearActiveLevel?.Invoke();
             CoreGamesSignals.Instance.onReset?.Invoke();
             CoreGamesSignals.Instance.onLevelInitialize?.Invoke(levelID);
+        }
+
+        public void IncreaseLevelId(int increaseAmount)
+        {
+            levelID = increaseAmount;
         }
         
     }
