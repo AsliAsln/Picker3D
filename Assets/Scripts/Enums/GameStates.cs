@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum GameStates
+﻿namespace Enums
 {
-   Idle,
-   Movement,
-   Final,
-   Store
+    public enum GameStates
+    {
+        Idle,
+        Movement,
+        Final,
+        Store
+    }
 }
