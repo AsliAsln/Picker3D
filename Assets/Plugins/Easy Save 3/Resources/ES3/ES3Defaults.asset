@@ -30,22 +30,19 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp-firstpass
-    - Cinemachine
+    - Boxophobic.PolyverseSkies.Runtime
     - Assembly-CSharp
-    - Sirenix.OdinInspector.CompatibilityLayer
-    - RuntimeTestAssembly
-    - NonConvexCollider
-    - NonConvexColliderRuntimeAPI
-    - sc.stylizedwater2.editor
+    - Cinemachine
     - sc.stylizedwater2.runtime
     - Boxophobic.Utils.Scripts
-    - Boxophobic.PolyverseSkies.Runtime
+    - RuntimeTestAssembly
+    - sc.stylizedwater2.editor
     - Boxophobic.PolyverseSkies.Scripts
-    - Sirenix.OdinInspector.CompatibilityLayer.Editor
+    - NonConvexCollider
+    - NonConvexColliderRuntimeAPI
+    - Boxophobic.Utils.Editor
     - PPv2URPConverters
     - NonConvexEditor
-    - Sirenix.OdinInspector.Modules.UnityMathematics
-    - Boxophobic.Utils.Editor
     - Boxophobic.PolyverseSkies.Editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0

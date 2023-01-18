@@ -1,6 +1,9 @@
-﻿using Data.ValueObjects;
+﻿using System;
+using Data.ValueObjects;
+using DG.Tweening;
 using Keys;
 using Managers;
+using Signals;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -14,14 +17,14 @@ namespace Controllers.Player
 
         [SerializeField] private PlayerManager manager;
 
-        [SerializeField] private new Rigidbody rigidbody;
+        [SerializeField] public new Rigidbody rigidbody;
         [SerializeField] private new Collider collider;
 
         #endregion
 
         #region Private Variables
 
-        [SerializeField] private MovementData _data;
+        [SerializeField] public MovementData _data;
 
         [SerializeField] private bool _isReadyToMove, _isReadyToPlay;
 
@@ -31,7 +34,7 @@ namespace Controllers.Player
         #endregion
 
         #endregion
-
+        
         internal void SetMovementData(MovementData movementData)
         {
             _data = movementData;
@@ -71,6 +74,24 @@ namespace Controllers.Player
             rigidbody.position = position;
         }
 
+        public void MiniGameMove()
+        {
+            var tempSpeed = _data.ForwardSpeed * _data.MiniGameMultiplier;
+            DOTween.To(() => tempSpeed, x => tempSpeed = x, 5, UnityEngine.Random.Range(4,10))
+                .OnUpdate(() =>
+                {
+                    _data.ForwardSpeed = tempSpeed;
+                })
+                .OnComplete(() => 
+                {
+                _data.ForwardSpeed = 0;
+                DOVirtual.DelayedCall(3, () =>
+                {
+                    CoreGameSignals.Instance.onLevelSuccessful?.Invoke();
+                });
+            });
+            }
+          
         private void StopPlayerHorizontaly()
         {
             rigidbody.velocity = new float3(0, rigidbody.velocity.y, _data.ForwardSpeed);
@@ -105,6 +126,11 @@ namespace Controllers.Player
             StopPlayer();
             _isReadyToPlay = false;
             _isReadyToMove = false;
+        }
+
+        public float GetBonusMult()
+        {
+            return _data.MiniGameMultiplier;
         }
     }
 }

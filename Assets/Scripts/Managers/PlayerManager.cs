@@ -72,8 +72,12 @@ namespace Managers
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
             CoreGameSignals.Instance.onStageAreaEntered += OnStageAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful += OnStageAreaSuccessful;
+            CoreGameSignals.Instance.onBonusAreaEntered += movementController.MiniGameMove;
+
             CoreGameSignals.Instance.onReset += OnReset;
         }
+
+     
 
         private void UnSubscribeEvents()
         {
@@ -85,7 +89,9 @@ namespace Managers
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
             CoreGameSignals.Instance.onStageAreaEntered -= OnStageAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful -= OnStageAreaSuccessful;
+            CoreGameSignals.Instance.onBonusAreaEntered -= movementController.MiniGameMove;
             CoreGameSignals.Instance.onReset -= OnReset;
+            
         }
 
         private void OnDisable()
@@ -121,12 +127,15 @@ namespace Managers
         private void OnStageAreaEntered()
         {
             movementController.IsReadyToPlay(false);
+            
         }
 
         private void OnStageAreaSuccessful(byte stageID)
         {
             movementController.IsReadyToPlay(true);
         }
+        
+   
 
         private void OnReset()
         {

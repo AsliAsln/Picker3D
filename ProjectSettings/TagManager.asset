@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - StageArea
+  - Collectable
+  - PoolArea
+  - BonusArea
+  - Missile
+  - bonus
   layers:
   - Default
   - TransparentFX

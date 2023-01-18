@@ -38,6 +38,8 @@ namespace Signals
         public Func<int> onGetLevelID = delegate { return 0; };
 
         public UnityAction onStageAreaEntered = delegate { };
+        public UnityAction onBonusAreaEntered = delegate { };
+
         public UnityAction<byte> onStageAreaSuccessful = delegate { };
     }
 }

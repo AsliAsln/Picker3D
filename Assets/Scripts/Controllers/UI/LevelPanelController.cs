@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Signals;
@@ -15,16 +16,19 @@ namespace Controllers.UI
 
         [SerializeField] private List<TextMeshProUGUI> levelTexts = new List<TextMeshProUGUI>();
         [Space] [SerializeField] private List<Image> stageImages = new List<Image>();
-
+        public TMP_Text _diamondText;
+        private BonusItem _bonusItem;
         #endregion
 
         #endregion
 
+  
         private void OnEnable()
         {
             SubscribeEvents();
         }
 
+      
         private void SubscribeEvents()
         {
             UISignals.Instance.onSetNewLevelValue += OnSetNewLevelValue;

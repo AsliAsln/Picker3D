@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelList:
   - PoolList:
+    - RequiredObjectCount: 5
     - RequiredObjectCount: 10
-    - RequiredObjectCount: 20
-    - RequiredObjectCount: 30
+    - RequiredObjectCount: 10

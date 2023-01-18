@@ -1,5 +1,6 @@
 ﻿using System;
 using Controllers.Pool;
+using Controllers.UI;
 using DG.Tweening;
 using Managers;
 using Signals;
@@ -16,12 +17,14 @@ namespace Controllers.Player
         [SerializeField] private PlayerManager manager;
         [SerializeField] private new Collider collider;
         [SerializeField] private new Rigidbody rigidbody;
+        [SerializeField] private PlayerMovementController _playerMovementController;
+        [SerializeField] private LevelPanelController _levelPanelController;
 
         #endregion
 
         #endregion
 
-
+      
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("StageArea"))
@@ -45,6 +48,25 @@ namespace Controllers.Player
                 });
                 return;
             }
+            else if (other.CompareTag("BonusArea"))
+            {
+                CoreGameSignals.Instance.onBonusAreaEntered.Invoke();
+                rigidbody.velocity *= _playerMovementController.GetBonusMult();
+                GameObject particle = manager.transform.Find("particle").gameObject;
+                particle.SetActive(true);
+                
+            }
+            else if (other.CompareTag("bonus"))
+            {
+
+                if (_playerMovementController.rigidbody.velocity.z<=0)
+                {
+                    Debug.Log("hız 0");
+                    _levelPanelController._diamondText.text = other.GetComponent<BonusItem>()._itemNumber.ToString();
+                    other.GetComponent<Renderer>().material.color=Color.red;
+                    Debug.Log(other.GetComponent<Renderer>().material.color);
+                }
+            }
         }
 
         private void OnDrawGizmos()
@@ -57,6 +79,7 @@ namespace Controllers.Player
 
         public void OnReset()
         {
+           
         }
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28714734, g: 0.6142231, b: 0.89308196, a: 1}
+  m_IndirectSpecularColor: {r: 0.6539757, g: 0.8685647, b: 0.99065644, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -489,6 +489,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe9fb86ebf74d5abc9d8e4c6bfe1afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data:
+    HorizontalInputSpeed: 0
+    ClampSpeed: 0
+    ClampValues:
+      x: 0
+      y: 0
+  _isFirstTimeTouchTaken: 0
+  _isAvailableForTouch: 0
+  _isTouching: 0
 --- !u!1 &703794622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 1759317707}
+  _initialPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2144747460
 GameObject:
   m_ObjectHideFlags: 0

@@ -2653,6 +2653,10 @@ MonoBehaviour:
   - {fileID: 9184225053601131155}
   - {fileID: 2519405734463406150}
   - {fileID: 4412717554545556511}
+  _data:
+    RequiredObjectCount: 0
+  _requiredAmount: 0
+  _collectedCount: 0
 --- !u!1 &5942088677032628728
 GameObject:
   m_ObjectHideFlags: 0
@@ -4399,8 +4403,7 @@ MonoBehaviour:
   m_text: 10 / 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 782ebb6cd8ca641d0b561b7c9d765c96, type: 2}
-  m_sharedMaterial: {fileID: 2524076245017955669, guid: 782ebb6cd8ca641d0b561b7c9d765c96,
-    type: 2}
+  m_sharedMaterial: {fileID: 2524076245017955669, guid: 782ebb6cd8ca641d0b561b7c9d765c96, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
